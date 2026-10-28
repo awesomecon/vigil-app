@@ -1,0 +1,45 @@
+name: Report a bug
+description: Report a crash, broken control, download problem, or other app behavior.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Vigil. Please search existing issues first.
+        Please remember that issues and discussions are public. Remove personal information from screenshots and logs before sharing.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we reproduce it?
+      description: Include the screen and steps. If it happened only once, say so.
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Vigil version
+      description: Find it in your device's app information or app store. If unavailable, enter unknown.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and operating system
+      placeholder: e.g. iPhone 15, iOS 18.5; or Windows 11 laptop
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Screenshots and other details (optional)
+      description: Attach a screenshot if useful. Include relevant settings or any error message, with personal information removed.

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions, feature ideas, and community conversations
+    url: https://github.com/awesomecon/vigil-app/discussions
+    about: Ask for help, suggest an improvement, or share how you use Vigil.
+  - name: Privacy policy
+    url: https://awesomecon.github.io/vigil-app/
+    about: Read the Vigil privacy policy.
