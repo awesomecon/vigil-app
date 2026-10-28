@@ -1,24 +1,188 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Privacy Policy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="How Vigil handles your privacy, local app data, optional downloads, and community participation.">
+  <meta name="referrer" content="no-referrer">
+  <title>Privacy policy · Vigil</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
+    :root {
+      color-scheme: light dark;
+      --background: #f3f3f3;
+      --surface: #fff;
+      --text: #242124;
+      --muted: #625d60;
+      --accent: #a52d31;
+      --accent-soft: #f9e9e8;
+      --line: #e3dcda;
+      --brand: #123047;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 24px; }
+    body { margin: 0; background: var(--background); color: var(--text); font: 16px/1.75 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: var(--accent); text-underline-offset: 4px; text-decoration-thickness: 1px; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; border-radius: 3px; }
+    .skip { position: absolute; left: 20px; top: -100px; background: var(--surface); padding: 8px 16px; z-index: 2; }
+    .skip:focus { top: 12px; }
+    .shell { width: min(1100px, 100% - 64px); margin: 0 auto; }
+    header { border-bottom: 1px solid var(--line); }
+    .topbar { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .identity { display: flex; align-items: center; gap: 12px; }
+    .mark { width: 46px; height: 46px; border-radius: 14px; object-fit: contain; flex-shrink: 0; }
+    .name { display: block; font-size: 22px; font-weight: 650; letter-spacing: -.5px; line-height: 1.2; }
+    .tagline { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+    .header-link { font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .header-link svg { width: 17px; height: 17px; }
+    .hero { padding: 64px 0 38px; max-width: 750px; }
+    .eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { margin: 0 0 16px; font-size: clamp(38px, 5vw, 56px); font-weight: 550; letter-spacing: -.055em; line-height: 1.1; }
+    .intro { margin: 0; font-size: 19px; color: var(--muted); max-width: 650px; line-height: 1.65; }
+    .updated { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
+    .layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; align-items: start; padding-bottom: 64px; }
+    .contents { position: sticky; top: 28px; padding-top: 6px; }
+    .contents h2 { margin: 0 0 12px; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+    .contents ol { margin: 0; padding: 0; list-style: none; }
+    .contents a { display: block; padding: 7px 0; color: var(--muted); font-size: 14px; text-decoration: none; }
+    .contents a:hover { color: var(--accent); text-decoration: underline; }
+    .summary { background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; padding: 26px 30px; margin-bottom: 20px; }
+    .summary h2 { margin: 0 0 10px; font-size: 19px; font-weight: 650; letter-spacing: -.025em; }
+    .summary ul { padding-left: 20px; margin: 0; }
+    .summary li { padding: 3px 0; }
+    .policy { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 6px 30px; }
+    section { padding: 28px 0; }
+    section + section { border-top: 1px solid var(--line); }
+    section h2 { display: flex; align-items: baseline; gap: 12px; margin: 0 0 12px; font-size: 21px; line-height: 1.4; font-weight: 650; letter-spacing: -.025em; }
+    .number { color: var(--accent); font-size: 12px; letter-spacing: .03em; font-weight: 650; flex-shrink: 0; }
+    p { margin: 0 0 14px; }
+    section p:last-child { margin-bottom: 0; }
+    section h3 { font-size: 16px; font-weight: 650; margin: 22px 0 6px; }
+    .note { padding: 15px 18px; border-left: 3px solid var(--accent); background: var(--background); border-radius: 0 10px 10px 0; font-size: 14px; }
+    .contact { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .button { display: inline-block; padding: 9px 17px; border: 1px solid var(--line); border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 14px; }
+    .button:hover { background: var(--accent-soft); text-decoration: none; }
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 25px 0; font-size: 12px; color: var(--muted); }
+    .footer-inner p { margin: 0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --background: #111; --surface: #1b1919; --text: #f0e9e7; --muted: #bbb1ae; --accent: #ffaaa3; --accent-soft: #352221; --line: #3c3331; }
+    }
+    @media (max-width: 760px) {
+      .shell { width: min(680px, 100% - 36px); }
+      .topbar { min-height: 84px; gap: 12px; }
+      .header-link { font-size: 13px; }
+      .tagline { font-size: 11px; }
+      .hero { padding: 40px 0 28px; }
+      .intro { font-size: 17px; }
+      .layout { grid-template-columns: 1fr; gap: 22px; padding-bottom: 40px; }
+      .contents { position: static; }
+      .contents ol { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+      .contents a { padding: 2px 0; font-size: 13px; }
+      .summary { padding: 22px; }
+      .policy { padding: 0 22px; }
+      section { padding: 24px 0; }
+      section h2 { font-size: 19px; }
+      .footer-inner { flex-wrap: wrap; }
+    }
+    @media print {
+      body { background: white; color: black; font-size: 11pt; }
+      .shell { width: 100%; }
+      .contents, .header-link, .contact, .skip { display: none; }
+      .layout { display: block; }
+      .hero { padding-top: 24px; }
+      .policy, .summary { border: 1px solid #bbb; background: white; }
+      section h2 { break-after: avoid; }
+      p, li { orphans: 3; widows: 3; }
+      a { color: black; }
     }
   </style>
 </head>
-<body>
-  <h1>Privacy Policy</h1>
-  <p>This app does not collect, store, use, or share any personal data.</p>
-  <p>All functionality is performed locally on the user’s device. No analytics, cookies,
-    tracking technologies, advertising identifiers, or third-party SDKs are used.
-    No information is transmitted to external servers.</p>
-  <p>Any changes to this policy will be included in a future version of the app.</p>
+<body id="top">
+  <a class="skip" href="#main">Skip to privacy policy</a>
+  <header>
+    <div class="shell topbar">
+      <div class="identity">
+        <img class="mark" src="icon.png" width="46" height="46" alt="">
+        <div><span class="name">Vigil</span><span class="tagline">Prayer. Scripture. Tradition.</span></div>
+      </div>
+      <a class="header-link" href="https://github.com/awesomecon/vigil-app/discussions">Community <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+    </div>
+  </header>
+  <main class="shell" id="main">
+    <div class="hero">
+      <p class="eyebrow">Your privacy</p>
+      <h1>Privacy policy</h1>
+      <p class="intro">A quiet space for prayer and reading. Here is how Vigil handles your information, on your device and when you choose to go online.</p>
+      <p class="updated">Last updated <time datetime="2026-10-28">October 28, 2026</time></p>
+    </div>
+    <div class="layout">
+      <nav class="contents" aria-label="Policy sections">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#local-data">01 &nbsp; On your device</a></li>
+          <li><a href="#connections">02 &nbsp; Online connections</a></li>
+          <li><a href="#community">03 &nbsp; Community &amp; support</a></li>
+          <li><a href="#choices">04 &nbsp; Your choices</a></li>
+          <li><a href="#website">05 &nbsp; This website</a></li>
+          <li><a href="#questions">06 &nbsp; Changes &amp; questions</a></li>
+        </ol>
+      </nav>
+      <div>
+        <aside class="summary" aria-labelledby="summary-title">
+          <h2 id="summary-title">At a glance</h2>
+          <ul>
+            <li>No Vigil account is required to pray or read.</li>
+            <li>Your settings and highlights are stored on your device.</li>
+            <li>Vigil does not include advertising or app usage analytics.</li>
+            <li>Downloads and external websites involve the services that provide them.</li>
+          </ul>
+        </aside>
+        <article class="policy" aria-label="Full privacy policy">
+          <section id="local-data" aria-labelledby="local-title">
+            <h2 id="local-title"><span class="number">01</span> Information on your device</h2>
+            <p>Vigil stores app preferences, reading settings, Bible highlights, reminder settings, and downloaded content locally so the app can remember your choices and work offline. This information is not sent to a Vigil account or cloud sync service.</p>
+            <p>Prayer reminders are scheduled on your device. If you enable notifications, your operating system manages the permission and displays those reminders.</p>
+            <p>Your device or operating system may include app data in backups, depending on your settings. Those backups are managed by your device or backup provider.</p>
+          </section>
+          <section id="connections" aria-labelledby="connections-title">
+            <h2 id="connections-title"><span class="number">02</span> When the app goes online</h2>
+            <h3>Optional meaning search downloads</h3>
+            <p>If you choose to download a meaning search pack, the app requests the necessary files from GitHub Releases and its download infrastructure. Once the pack is installed, meaning search runs on your device. Your search queries are not sent to GitHub for processing.</p>
+            <h3>Information received by those services</h3>
+            <p>Online requests expose your IP address and technical request information to the service handling the request. Those services handle that information under their own policies. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</p>
+            <p>When you open an external link, the destination website and your browser handle that visit under their own privacy settings and policies.</p>
+          </section>
+          <section id="community" aria-labelledby="community-title">
+            <h2 id="community-title"><span class="number">03</span> Community and support</h2>
+            <p>Vigil uses GitHub Issues and Discussions for bug reports, questions, and feature ideas. Participation is optional and is handled through GitHub, which may require a GitHub account to post.</p>
+            <p>If you submit a report or discussion, the project maintainer can see your GitHub username and the information you choose to share, and may use it to respond and improve the app.</p>
+            <p class="note"><strong>Posts are public.</strong> Please remove personal information from screenshots and logs. Do not post private prayer intentions, contact details, or other sensitive information.</p>
+          </section>
+          <section id="choices" aria-labelledby="choices-title">
+            <h2 id="choices-title"><span class="number">04</span> Your choices and stored data</h2>
+            <p>You can change your preferences and reminder settings in the app, turn off notification permission in your device settings, and remove optional search downloads through the app’s download controls.</p>
+            <p>Locally stored information remains on your device until you remove it or clear the app’s data. Uninstalling the app generally removes its local data; device backups may retain copies according to your backup settings.</p>
+            <p>GitHub posts are separate from app data. Deleting Vigil does not delete issues, discussions, comments, or attachments you have posted on GitHub. Manage those through your GitHub account and GitHub’s controls.</p>
+          </section>
+          <section id="website" aria-labelledby="website-title">
+            <h2 id="website-title"><span class="number">05</span> This privacy page</h2>
+            <p>This page is hosted on GitHub Pages. It contains no analytics scripts, advertising, tracking pixels, cookies set by this page. GitHub may process technical information needed to serve the page under its own privacy statement.</p>
+          </section>
+          <section id="questions" aria-labelledby="questions-title">
+            <h2 id="questions-title"><span class="number">06</span> Changes and questions</h2>
+            <p>This policy may change as Vigil develops. The date at the top of this page identifies the latest revision.</p>
+            <p>For general questions about this policy, contact the maintainer through the Vigil GitHub community. Keep questions public-safe; do not include sensitive personal information.</p>
+            <div class="contact">
+              <a class="button" href="https://github.com/awesomecon/vigil-app/discussions">Ask a question <span aria-hidden="true">↗</span></a>
+              <a class="button" href="https://github.com/awesomecon/vigil-app/issues/new/choose">Report a problem <span aria-hidden="true">↗</span></a>
+            </div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </main>
+  <footer><div class="shell footer-inner"><p>Vigil · Prayer. Scripture. Tradition.</p><a href="#top">Back to top ↑</a></div></footer>
 </body>
 </html>
